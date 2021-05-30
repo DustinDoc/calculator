@@ -58,14 +58,51 @@ div.buttonRow{
     grid-column-gap: 10px;
 }
 
+button{
+    font-size: 1.5em;
+}
+
 button#clear{
     background-color: rgba(219, 82, 77, 1);
+}
+
+button#clear:hover{
+    background-color: rgb(233, 43, 36);
+}
+
+button#clear:active{
+    background-color: rgb(151, 10, 5);
 }
 
 button#delete{
     background-color: rgba(77, 82, 235, 1);
 }
 
+button#delete:hover{
+    background-color: rgb(42, 48, 236);
+}
+
+button#delete:active{
+    background-color: rgb(19, 24, 185);
+}
+
+
 button.regularButton{
     background-color: rgba(210,210,210, 1);
+}
+
+button.regularButton:hover{
+    background-color: rgb(175, 171, 171);
+}
+
+button.regularButton:active{
+    background-color: rgb(104, 102, 102);
+}
+
+/* display */
+div#display{
+    font-size: 4.5em;
+    font-family: sans-serif;
+    text-align: right;
+    padding-right: 10px;
 }
