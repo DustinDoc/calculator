@@ -1,10 +1,21 @@
 "use strict";
 
 const display = document.getElementById('display');
+const buttonsReg = Array.from(document.getElementsByClassName('regularButton'));
 var displayVal = 0;
 
 function main(){
     display.textContent = displayVal;
+    initialize();
+}
+
+function initialize(){
+    buttonsReg.forEach(function(i){
+        i.addEventListener('click', function(e){
+        let dataValue = e.target.dataset.value;
+        console.log(dataValue);
+        })
+    })
 }
 
 function add(num1, num2){
