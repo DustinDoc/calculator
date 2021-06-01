@@ -9,6 +9,7 @@ const decimalButton = document.getElementById("decimal");
 var displayVal = 0;
 var num1 = "";
 var num2 = "";
+var operationSign = "";
 
 function main(){
     display.textContent = displayVal;
@@ -37,13 +38,21 @@ function initialize(){
     })
 
     buttonsOp.forEach(function(i){
-
+        i.addEventListener('click', function(e){
+            operationSign = e.target.dataset.value;
+            console.log(operationSign);
+            if(num1 === ""){
+                num1 = Number(displayVal);
+                displayVal = 0;
+            }
+        })
     })
 
     clearButton.addEventListener('click', function(){
-        displayVal = "0";
-        num1 = "0";
-        num2 = "0";
+        displayVal = 0;
+        num1 = "";
+        num2 = "";
+        operationSign = "";
         display.textContent = displayVal;
     })
 
@@ -74,16 +83,16 @@ function divide(num1, num2){
 function operate(operator, num1, num2){
     switch(operator){
         case '+':
-            add(num1, num2);
+            return add(num1, num2);
             break;
         case '-':
-            subtract(num1, num2);
+            return subtract(num1, num2);
             break;
-        case '*': 
-            multiply(num1, num2);
+        case 'x': 
+            return multiply(num1, num2);
             break;
-        case '/':
-            divide(num1, num2);
+        case '÷':
+            return divide(num1, num2);
             break;
     }
 }

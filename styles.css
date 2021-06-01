@@ -87,15 +87,15 @@ button#delete:active{
 }
 
 
-button.numButton, button.operationButton, button#decimal{
+button.numButton, button.operationButton, button#decimal, button#equal{
     background-color: rgba(210,210,210, 1);
 }
 
-button.numButton:hover, button.operationButton:hover, button#decimal:hover{
+button.numButton:hover, button.operationButton:hover, button#decimal:hover button#equal:hover{
     background-color: rgb(175, 171, 171);
 }
 
-button.numButton:active, button.operationButton:active, button#decimal:active{
+button.numButton:active, button.operationButton:active, button#decimal:active, button#equal:active{
     background-color: rgb(104, 102, 102);
 }
 
