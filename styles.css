@@ -63,7 +63,7 @@ button{
 }
 
 button#clear{
-    background-color: rgba(219, 82, 77, 1);
+    background-color: rgb(221, 96, 92);
 }
 
 button#clear:hover{
@@ -75,7 +75,7 @@ button#clear:active{
 }
 
 button#delete{
-    background-color: rgba(77, 82, 235, 1);
+    background-color: rgb(104, 108, 231);
 }
 
 button#delete:hover{
@@ -87,22 +87,24 @@ button#delete:active{
 }
 
 
-button.numButton, button.operationButton{
+button.numButton, button.operationButton, button#decimal{
     background-color: rgba(210,210,210, 1);
 }
 
-button.numButton:hover, button.operationButton:hover{
+button.numButton:hover, button.operationButton:hover, button#decimal:hover{
     background-color: rgb(175, 171, 171);
 }
 
-button.numButton:active, button.operationButton:active{
+button.numButton:active, button.operationButton:active, button#decimal:active{
     background-color: rgb(104, 102, 102);
 }
 
 /* display */
 div#display{
-    font-size: 4em;
+    font-size: 3em;
     font-family: sans-serif;
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     padding-right: 10px;
 }

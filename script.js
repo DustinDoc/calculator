@@ -5,6 +5,7 @@ const buttonsNum = Array.from(document.getElementsByClassName('numButton'));
 const buttonsOp = Array.from(document.getElementsByClassName('operationButton'));
 const clearButton = document.getElementById("clear");
 const deleteButton = document.getElementById("delete");
+const decimalButton = document.getElementById("decimal");
 var displayVal = 0;
 var num1 = "";
 var num2 = "";
@@ -18,31 +19,35 @@ function initialize(){
     buttonsNum.forEach(function(i){
         i.addEventListener('click', function(e){
         let dataValue = e.target.dataset.value;
-        console.log(dataValue);
         if (displayVal == "0"){
             displayVal = dataValue;
         }
-        else if(displayVal.length < 10)
+        else if(displayVal.length < 10 || displayVal.includes('.') && displayVal.length < 11)
             displayVal += dataValue;
-        else 
-            displayVal = 0;
         
         display.textContent = displayVal;
         })
+    })
+
+    decimalButton.addEventListener('click', function(){
+        if(displayVal.length < 10 && displayVal.includes('.') == false ? true : false){
+            displayVal += '.';
+            display.textContent = displayVal;
+        }
     })
 
     buttonsOp.forEach(function(i){
 
     })
 
-    clearButton.addEventListener("click", function(){
+    clearButton.addEventListener('click', function(){
         displayVal = "0";
         num1 = "0";
         num2 = "0";
         display.textContent = displayVal;
     })
 
-    deleteButton.addEventListener("click", function(){
+    deleteButton.addEventListener('click', function(){
         if (displayVal.length > 0){
             displayVal = displayVal.slice(0,-1);
             display.textContent = displayVal;
