@@ -5,96 +5,113 @@ const buttonsNum = Array.from(document.getElementsByClassName('numButton'));
 const buttonsOp = Array.from(document.getElementsByClassName('operationButton'));
 const clearButton = document.getElementById("clear");
 const deleteButton = document.getElementById("delete");
-const decimalButton = document.getElementById("decimal");
-var displayVal = 0;
-var num1 = "";
-var num2 = "";
-var operationSign = "";
-
-function main(){
-    display.textContent = displayVal;
-    initialize();
-}
+const equalButton = document.getElementById("equal");
+display.textContent = 0;
+var firstOperand= "";
+var secondOperand= "";
+var operationSign = null;
+var reset = false;
 
 function initialize(){
-    buttonsNum.forEach(function(i){
-        i.addEventListener('click', function(e){
-        let dataValue = e.target.dataset.value;
-        if (displayVal == "0"){
-            displayVal = dataValue;
-        }
-        else if(displayVal.length < 10 || displayVal.includes('.') && displayVal.length < 11)
-            displayVal += dataValue;
-        
-        display.textContent = displayVal;
-        })
-    })
 
-    decimalButton.addEventListener('click', function(){
-        if(displayVal.length < 10 && displayVal.includes('.') == false ? true : false){
-            displayVal += '.';
-            display.textContent = displayVal;
-        }
-    })
+    equalButton.addEventListener('click', compute);
+    clearButton.addEventListener('click', clear);
+    deleteButton.addEventListener('click', del);
 
-    buttonsOp.forEach(function(i){
-        i.addEventListener('click', function(e){
-            operationSign = e.target.dataset.value;
-            console.log(operationSign);
-            if(num1 === ""){
-                num1 = Number(displayVal);
-                displayVal = 0;
+    buttonsNum.forEach((button) =>
+        button.addEventListener('click', () => append(button.dataset.value))
+    )
+
+    buttonsOp.forEach((button) => 
+        button.addEventListener('click', () => operation(button.dataset.value))
+    )
+
+}
+
+function clear(){
+    display.textContent = '0';
+    firstOperand = '';
+    secondOperand = '';
+    operationSign = null;
+}
+
+function del(){
+    display.textContent = display.textContent.slice(0, -1);
+}
+
+function resetScreen(){
+    display.textContent = '';
+    reset = false;
+}
+
+function append(input){
+    if (reset) resetScreen();
+    if (display.textContent.length < 10 || display.textContent.includes('.') && display.textContent.length < 11){
+        if(input === '.'){
+            if(display.textContent === ''){
+                display.textContent = '0';
             }
-        })
-    })
-
-    clearButton.addEventListener('click', function(){
-        displayVal = 0;
-        num1 = "";
-        num2 = "";
-        operationSign = "";
-        display.textContent = displayVal;
-    })
-
-    deleteButton.addEventListener('click', function(){
-        if (displayVal.length > 0){
-            displayVal = displayVal.slice(0,-1);
-            display.textContent = displayVal;
+            if(display.textContent.includes('.')) return
+            display.textContent += '.'
+        }else{
+            if(display.textContent === '0'){
+                display.textContent = input;
+            }else
+            display.textContent+= input;
         }
-    })
+    } 
 }
 
-function add(num1, num2){
-    return num1 + num2;
+function operation(operator){
+    if(operationSign !== null) compute();
+    firstOperand = display.textContent;
+    operationSign = operator;
+    reset = true;
 }
 
-function subtract(num1, num2){
-    return num1 - num2;
-}
-
-function multiply(num1, num2){
-    return num1 * num2;
-}
-
-function divide(num1, num2){
-    return num1 / num2;
-}
-
-function operate(operator, num1, num2){
-    switch(operator){
-        case '+':
-            return add(num1, num2);
-            break;
-        case '-':
-            return subtract(num1, num2);
-            break;
-        case 'x': 
-            return multiply(num1, num2);
-            break;
-        case '÷':
-            return divide(num1, num2);
-            break;
+function compute(){
+    if(operationSign === null || reset === true) return
+    if(operationSign === '÷' && display.textContent === '0'){
+        alert("Cannot divide by 0");
+        return;
     }
+    secondOperand = display.textContent;
+    display.textContent = calculate();
+    operationSign = null;
 }
 
-main();
+function add(a,b){
+    return a + b;
+}
+
+function subtract(a,b){
+    return a - b;
+}
+
+function multiply(a,b){
+    return a * b;
+}
+
+function divide(a,b){
+    return a / b;
+}
+
+function calculate(){
+    firstOperand = Number(firstOperand);
+    secondOperand = Number(secondOperand);
+    if(operationSign === '+'){
+        return add (firstOperand, secondOperand);
+    }
+    else if(operationSign === '-'){
+        return subtract (firstOperand, secondOperand);
+    }
+    else if(operationSign === 'x'){
+        return multiply (firstOperand, secondOperand);
+    }
+    else if(operationSign === '÷'){
+        return divide (firstOperand, secondOperand);
+    }
+    else return null;
+}
+
+initialize();
